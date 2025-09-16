@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import superset.bi.fictionesl.master.departament.Department;
+import superset.bi.fictionesl.master.department.Department;
 
 @AllArgsConstructor
 @NoArgsConstructor
