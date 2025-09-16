@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  superset:
+    image: apache/superset:latest
+    container_name: superset
+    environment:
+      - SUPERSET_SECRET_KEY=mysecretkey
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=admin
+      - ADMIN_FIRST_NAME=Admin
+      - ADMIN_LAST_NAME=User
+      - ADMIN_EMAIL=admin@superset.com
+      - DATABASE_DIALECT=postgresql
+      - DATABASE_USER=superset
+      - DATABASE_PASSWORD=superset
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_DB=superset
+      - SUPERSET_CONFIG_PATH=/app/pythonpath/superset_config.py
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./superset_home:/app/superset_home
+    depends_on:
+      - db
+    restart: always
+    command: >
+      /bin/bash -c "
+        superset db upgrade &&
+        superset fab create-admin --username admin --firstname Admin --lastname User --email admin@superset.com --password admin &&
+        superset init &&
+        superset run -h 0.0.0.0 -p 8088
+      "
+
+  db:
+    image: postgres:15
+    container_name: superset_db
+    environment:
+      - POSTGRES_USER=superset
+      - POSTGRES_PASSWORD=superset
+      - POSTGRES_DB=superset
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    restart: always
