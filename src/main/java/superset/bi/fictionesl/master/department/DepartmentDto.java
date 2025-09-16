@@ -11,7 +11,7 @@ public record DepartmentDto(
 ) {
     public DepartmentDto {
         if (employees == null) {
-            employees = List.of(); // o new ArrayList<>()
+            employees = List.of();
         }
     }
 }
