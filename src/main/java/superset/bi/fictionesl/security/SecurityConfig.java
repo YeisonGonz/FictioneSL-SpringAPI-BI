@@ -18,7 +18,10 @@ public class SecurityConfig {
                                 "/employess/**",
                                 "/clients/**",
                                 "/products/**",
-                                "/orders/**")
+                                "/orders/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html")
                         .permitAll()
                         .anyRequest().authenticated()
                 )
