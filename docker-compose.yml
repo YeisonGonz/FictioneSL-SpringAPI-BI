@@ -39,3 +39,19 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     restart: always
+
+  springboot-backend:
+    image: openjdk:21-jdk-slim
+    container_name: springboot_backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./build/libs/fictionesl-0.0.1-SNAPSHOT.jar:/app/app.jar
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/superset
+      - SPRING_DATASOURCE_USERNAME=superset
+      - SPRING_DATASOURCE_PASSWORD=superset
+    command: [ "java", "-jar", "/app/app.jar" ]
+    depends_on:
+      - db
+    restart: always
