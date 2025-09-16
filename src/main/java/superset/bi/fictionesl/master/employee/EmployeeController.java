@@ -1,7 +1,6 @@
 package superset.bi.fictionesl.master.employee;
 
 import org.springframework.web.bind.annotation.*;
-import superset.bi.fictionesl.master.department.DepartmentMapper;
 import superset.bi.fictionesl.master.department.DepartmentRepository;
 
 
