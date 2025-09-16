@@ -1,4 +1,4 @@
-package superset.bi.fictionesl.master.departament;
+package superset.bi.fictionesl.master.department;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
