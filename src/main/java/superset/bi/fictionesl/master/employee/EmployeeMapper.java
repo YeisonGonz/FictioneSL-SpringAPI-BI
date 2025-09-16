@@ -9,7 +9,7 @@ public interface EmployeeMapper extends GenericMapper <Employee,EmployeeDto>{
 
     @Mapping(source = "department.id", target = "departmentId")
     EmployeeDto toDto(Employee employee);
-
+    
     @Mapping(source = "departmentId", target = "department.id")
     Employee toEntity(EmployeeDto dto);
 }

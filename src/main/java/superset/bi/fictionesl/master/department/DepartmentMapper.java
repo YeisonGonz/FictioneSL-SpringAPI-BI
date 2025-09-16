@@ -12,4 +12,8 @@ import superset.bi.fictionesl.shared.GenericMapper;
         uses = EmployeeMapper.class,
         nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT
 )
-public interface DepartmentMapper extends GenericMapper<Department, DepartmentDto> { }
+public interface DepartmentMapper extends GenericMapper<Department, DepartmentDto> {
+    @Override
+    @Mapping(target = "id", ignore = true)
+    Department toEntity(DepartmentDto dto);
+}

@@ -7,8 +7,14 @@ import superset.bi.fictionesl.shared.GenericMapper;
 
 @Mapper(componentModel = "spring", uses = {ProductMapper.class})
 public interface OrderMapper extends GenericMapper<Order, OrderDto> {
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "client", ignore = true) // lo asignamos en el controller
-    @Mapping(target = "productLineList", ignore = true) // lo asignamos en el controller
+
+    @Mapping(source = "client.id", target = "clientId")
+    @Mapping(source = "productLineList", target = "products")
+    @Override
+    OrderDto toDto(Order entity);
+
+    @Mapping(source = "clientId", target = "client.id")
+    @Mapping(source = "products", target = "productLineList")
+    @Override
     Order toEntity(OrderDto dto);
 }
