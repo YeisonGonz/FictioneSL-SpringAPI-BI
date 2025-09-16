@@ -16,8 +16,8 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public List<Department> getAll() {
-        return repository.findAll();
+    public List<DepartmentDto> getAll() {
+        return mapper.toDtoList(repository.findAll());
     }
 
     @PostMapping
