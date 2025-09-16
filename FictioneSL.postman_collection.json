@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "52069e45-ba99-4bd5-9c07-5e0dcb848197",
+		"name": "FictioneSL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32773679"
+	},
+	"item": [
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Get All Clients",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Juan\",\r\n    \"email\": \"email@example.com\",\r\n    \"phone\": \"616161616\"\r\n}"
+						},
+						"url": "{{baseUrl}}/clients"
+					},
+					"response": []
+				},
+				{
+					"name": "Put Client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Felipe\",\r\n    \"email\": \"email@example.com\",\r\n    \"phone\": \"616161617\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/clients/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Department",
+			"item": [
+				{
+					"name": "Delete Department",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/departments/102"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employee",
+			"item": []
+		},
+		{
+			"name": "Product",
+			"item": []
+		},
+		{
+			"name": "Order",
+			"item": []
+		},
+		{
+			"name": "Post Departament",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Finanzas Administrativas\",\r\n    \"location\": \"Madrid\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/departments"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Employee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Tomass\",\r\n    \"surname\": \"Sur Name\",\r\n    \"age\": 20,\r\n    \"departmentId\": 53\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/employess"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Juan\",\r\n    \"email\": \"email@example.com\",\r\n    \"phone\": \"616161616\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/clients"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Salami\",\r\n    \"price\": 20.90,\r\n    \"stock\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/products"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"clientId\": 2,\r\n  \"date\": \"2025-09-16\",\r\n  \"products\": [\r\n    { \"productId\": 3, \"amount\": 10 }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/orders"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		}
+	]
+}
