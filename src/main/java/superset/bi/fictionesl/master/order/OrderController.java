@@ -9,13 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import superset.bi.fictionesl.master.client.Client;
-import superset.bi.fictionesl.master.client.ClientRepository;
-import superset.bi.fictionesl.master.product.ProductRepository;
-import superset.bi.fictionesl.master.productLine.ProductLine;
-import superset.bi.fictionesl.master.productLine.ProductLineDto;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,18 +16,12 @@ import java.util.List;
 public class OrderController {
 
     private final OrderRepository orderRepository;
-    private final ClientRepository clientRepository;
-    private final ProductRepository productRepository;
-    private final OrderMapper orderMapper;
+    private final OrderService orderService;
 
     public OrderController(OrderRepository orderRepository,
-                           ClientRepository clientRepository,
-                           ProductRepository productRepository,
-                           OrderMapper orderMapper) {
+                           OrderService orderService) {
         this.orderRepository = orderRepository;
-        this.clientRepository = clientRepository;
-        this.productRepository = productRepository;
-        this.orderMapper = orderMapper;
+        this.orderService = orderService;
     }
 
     @Operation(summary = "Get all orders", description = "Retrieve a list of all orders")
@@ -63,7 +50,7 @@ public class OrderController {
     })
     @PostMapping
     public Order createOrder(@RequestBody OrderDto dto) {
-        return saveOrUpdate(dto, null);
+        return orderService.saveOrUpdate(dto, null);
     }
 
     @Operation(summary = "Update an existing order", description = "Update an order by ID with new product lines")
@@ -90,7 +77,7 @@ public class OrderController {
         if (!orderRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        Order updated = saveOrUpdate(dto, id);
+        Order updated = orderService.saveOrUpdate(dto, id);
         return ResponseEntity.ok(updated);
     }
 
@@ -101,36 +88,6 @@ public class OrderController {
         if (!orderRepository.existsById(id)) return ResponseEntity.notFound().build();
         orderRepository.deleteById(id);
         return ResponseEntity.noContent().build();
-    }
-
-    // Método auxiliar para crear o actualizar pedidos
-    private Order saveOrUpdate(OrderDto dto, Long id) {
-        Order order = id == null ? new Order() : orderRepository.findById(id).orElseThrow();
-
-        order.setDate(dto.date());
-
-        Client client = clientRepository.findById(dto.clientId())
-                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
-        order.setClient(client);
-
-        if (order.getProductLineList() == null) {
-            order.setProductLineList(new ArrayList<>());
-        }
-
-        order.getProductLineList().clear();
-
-        for (ProductLineDto plDto : dto.products()) {
-            ProductLine line = new ProductLine();
-            line.setOrders(order);
-            line.setAmount(plDto.amount());
-            line.setProduct(
-                    productRepository.findById(plDto.productId())
-                            .orElseThrow(() -> new RuntimeException("Producto no encontrado"))
-            );
-            order.getProductLineList().add(line);
-        }
-
-        return orderRepository.save(order);
     }
 
 }
